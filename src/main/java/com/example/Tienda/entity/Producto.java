@@ -35,8 +35,7 @@ public class Producto {
 
     @Lob
     @NotNull
-
-    @Column(name = "imagen")
+    @Column(name = "imagen", length = 3000000)
     private String imagen;
 
     @NotNull
