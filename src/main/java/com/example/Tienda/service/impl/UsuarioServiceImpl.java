@@ -1,18 +1,13 @@
 package com.example.Tienda.service.impl;
 
-import com.example.Tienda.entity.Rol;
 import com.example.Tienda.entity.Usuario;
-import com.example.Tienda.entity.UsuarioRol;
-import com.example.Tienda.repository.RolRepository;
 import com.example.Tienda.repository.UsuarioRepository;
 import com.example.Tienda.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.yaml.snakeyaml.scanner.ScannerImpl;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,25 +16,15 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    @Autowired
-    private RolRepository rolRepository;
 
     @Override
-    public Usuario guardarUsuario(Usuario usuario, Set<UsuarioRol> usuarioRoles) throws Exception {
-        Usuario usuarioLocal = usuarioRepository.findAllByNombreUsuario(usuario.getNombreUsuario());
-        if (usuarioLocal != null) {
-            throw new Exception("El usuario ya está presente");
-        } else {
-            for (UsuarioRol usuarioRol : usuarioRoles) {
-                rolRepository.save(usuarioRol.getRol());
-            }
-            usuario.getUsuarioRoles().addAll(usuarioRoles);
-            return usuarioRepository.save(usuario);
-        }
+    public Usuario obtenerUsuario(String username) {
+        return null;
     }
+
     @Override
-    public Usuario obtenerUsuario(String nombreUsuario) {
-        return usuarioRepository.findAllByNombreUsuario(nombreUsuario);
+    public void eliminarUsuario(Long usuarioId) {
+        usuarioRepository.deleteById(usuarioId);
     }
 
     @Override

@@ -2,18 +2,15 @@ package com.example.Tienda.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.antlr.v4.runtime.misc.NotNull;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+
+import java.util.*;
+
 
 @Setter
+@Builder
 @Getter
 @Entity
 @AllArgsConstructor
@@ -22,45 +19,46 @@ import java.util.Set;
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "id_usuario")
+    @Column(name = "id_usuario")
     private Long usuarioId;
 
     @NotNull
-    @Column (name = "nombreUsuario")
-    private String nombreUsuario;
+    @Column(name = "nombreUsuario")
+    private String username;
 
     @NotNull
-    @Column (name = "nombre")
+    @Column(name = "nombre")
     private String nombre;
 
     @NotNull
-    @Column (name = "apellido")
+    @Column(name = "apellido")
     private String apellido;
 
 
     @NotNull
-    @Column (name = "email")
+    @Column(name = "email")
     private String email;
 
     @NotNull
-    @Column (name = "password")
+    @Column(name = "password")
     private String password;
 
     @NotNull
-    @Column (name = "cedula")
+    @Column(name = "cedula")
     private String cedula;
 
     @NotNull
-    @Column (name = "telefono")
+    @Column(name = "telefono")
     private String telefono;
 
     @NotNull
-    @Column (name = "imagen", length = 3000000)
+    @Column(name = "imagen", length = 3000000)
     private String imagen;
 
     @NotNull
-    @Column (name = "estado")
+    @Column(name = "estado")
     private Boolean estado = true;
+
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
@@ -86,4 +84,5 @@ public class Usuario {
                 ", tiendas=" + tiendas +
                 '}';
     }
+
 }

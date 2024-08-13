@@ -2,7 +2,6 @@ package com.example.Tienda.controller;
 
 import com.example.Tienda.entity.Rol;
 import com.example.Tienda.entity.Usuario;
-import com.example.Tienda.entity.UsuarioRol;
 import com.example.Tienda.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,53 +17,7 @@ public class UsuarioController {
     @Autowired
     public UsuarioService usuarioService;
 
-
-    @PostMapping("/")
-    public ResponseEntity<Map<String, String>> guardarUsuario(@RequestBody Usuario usuario) {
-        Map<String, String> response = new HashMap<>();
-        try {
-
-            Rol rol = new Rol();
-            rol.setRolId(2L);
-            rol.setNombre("User");
-
-            UsuarioRol usuarioRol = new UsuarioRol();
-            usuarioRol.setUsuario(usuario);
-            usuarioRol.setRol(rol);
-
-            Set<UsuarioRol> roles = new HashSet<>();
-            roles.add(usuarioRol);
-            Usuario usuarioGuardado = usuarioService.guardarUsuario(usuario, roles);
-            response.put("message", "Usuario registrado con éxito.");
-            response.put("usuario", usuarioGuardado.toString());
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
-        } catch (Exception e) {
-            response.put("message", "Ya existe un usuario con esos datos.");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-        }
-    }
-
-
-
-
-    @GetMapping("/{nombreUsuario}")
-    public ResponseEntity<Map<String, Object>> obtenerUsuario(@PathVariable("nombreUsuario") String nombreUsuario) {
-        Map<String, Object> response = new HashMap<>();
-        Usuario usuario = usuarioService.obtenerUsuario(nombreUsuario);
-
-        if (usuario != null) {
-            response.put("usuario", usuario);
-            return ResponseEntity.ok(response);
-        } else {
-            response.put("message", "No está registrado ningún usuario con el nombre proporcionado.");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
-        }
-    }
-
-
-
-
-    //Mostrar
+    //Mostrar los que estan en angular
     @GetMapping
     public List<Usuario> getAllUsuario() {
         return usuarioService.getAllUsuario();

@@ -1,16 +1,14 @@
 package com.example.Tienda.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Setter
 @Getter
+@Builder
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,8 +24,5 @@ public class Rol {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "rol")
     private Set<UsuarioRol> usuarioRoles = new HashSet<>();
-
-
-
 
 }
